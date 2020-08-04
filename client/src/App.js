@@ -12,6 +12,7 @@ import RegisterPage from './components/views/RegisterPage/RegisterPage';
 import NavBar from "./components/views/NavBar/NavBar";
 import Auth from './hoc/auth'
 import MovieDetail from './components/views/MovieDetail/MovieDetail'
+import FavoritePage from './components/views/FavoritePage/FavoritePage'
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route exact path="/login" component={Auth(LoginPage, false)} />
           <Route exact path="/register" component={Auth(RegisterPage, false)} />
           <Route exact path="/movie/:movieId" component={Auth(MovieDetail, null)} />
+          <Route exact path="/favorite" component={Auth(FavoritePage, true)} />
         </Switch>
       </div>
     </Suspense>

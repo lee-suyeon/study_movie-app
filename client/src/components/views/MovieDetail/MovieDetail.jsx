@@ -58,7 +58,7 @@ function MovieDetail(props) {
         {/* Actors grid */}
         {actorToggle &&
         <Row gutter={[16, 16]} >
-          {casts && casts.map((cast, index) => (
+          {casts && casts.slice(0,4).map((cast, index) => (
               <div key={index}>
                 <GridCards
                   image={cast.profile_path ?
