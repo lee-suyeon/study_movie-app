@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios';
 import { withRouter } from 'react-router-dom'; 
 import { API_KEY, API_URL, IMAGE_BASE_URL } from '../../../Config';
-import MainImage from './Sections/MainImage';
+import MainImage from '../commons/MainImage';
 import GridCards from '../commons/GridCards'
 import { Row } from 'antd'
 
@@ -48,6 +48,7 @@ function LandingPage(props) {
           {movies && movies.map((movie, index) => (
             <div key={index}>
               <GridCards
+                landingPage
                 image={movie.poster_path ?
                   `${IMAGE_BASE_URL}w400${movie.poster_path}` : null}
                 movieId={movie.id}
