@@ -3,6 +3,7 @@ import { API_KEY, API_URL, IMAGE_BASE_URL } from '../../../Config';
 import { withRouter } from 'react-router-dom';
 import MainImage from '../commons/MainImage';
 import MovieInfo from './Sections/MovieInfo';
+import Favorite from './Sections/Favorite';
 import GridCards from '../commons/GridCards';
 import { Row } from 'antd'
 
@@ -12,7 +13,6 @@ function MovieDetail(props) {
   const [actorToggle, setActorToggle] = useState(false);
 
   let movieId = props.match.params.movieId;
-
   useEffect(() => {
 
     let endpointInfo = `${API_URL}movie/${movieId}?api_key=${API_KEY}`
@@ -27,7 +27,6 @@ function MovieDetail(props) {
     fetch(endpointCrew)
       .then(response => response.json())
       .then(response => {
-        console.log(response.cast);
         setCasts(response.cast)
       })
   }, [])
@@ -43,11 +42,14 @@ function MovieDetail(props) {
         image={`${IMAGE_BASE_URL}w1280${movie.backdrop_path}`} 
         title={movie.original_title}
         overview={movie.overview}
-       />
+      />
       {/* body */}
       <div style={{ width: '85%', margin: '1rem auto' }}>
+        <div style={{ display: 'flex', justifyContent: 'flex-end'}}>
+          <Favorite movieInfo={movie} movieId={movieId} userFrom={localStorage.getItem('userId')}/>
+        </div>
         {/* movie info */}
-        <MovieInfo movie={movie}/>
+        <MovieInfo movie={movie} />
         <br />
     
         <div style={{ display: 'flex', justifyContent: 'center', margin: '2rem' }}>
