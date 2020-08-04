@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from './node_modules/react'
-import { Typography } from './node_modules/antd';
+import React, { useState, useEffect } from 'react'
+import { Typography } from 'antd';
 
 const { Title } = Typography;
 
