@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Axios from 'axios';
+import { Button } from 'antd';
 
 function Favorite({ movieInfo, movieId, userFrom }) {
 
@@ -10,13 +11,15 @@ function Favorite({ movieInfo, movieId, userFrom }) {
   const moviePost = movieInfo.backdrop_path;
   const movieRunTime = movieInfo.runtime;
 
-  useEffect(() => {
-    console.log('userFrom', userFrom);
-    let variables = {
-      userFrom: userFrom,
-      movieId: movieId,
-    }
+  let variables = {
+    userFrom,
+    movieId,
+    movieTitle,
+    moviePost,
+    movieRunTime
+  }
 
+  useEffect(() => {
     // 서버에 요청을 해서 DB에 있는 정보를 가져온다. 
     Axios.post('/api/favorite/favoriteNumber', variables)
       .then(response => {
@@ -38,10 +41,34 @@ function Favorite({ movieInfo, movieId, userFrom }) {
       })
   }, [])
 
+  const onClickFavorite = () => {
+    if(favorited){ // 이미 favorite 상태일 때
+      Axios.post('/api/favorite/removeFromFavorite', variables)
+        .then(response => {
+          if(response.data.success){
+            setFavorited(prev => !prev);
+            setFavoriteNumber(prev => prev - 1);
+          } else {
+            alert('favorite 삭제를 실패했습니다.')
+          }
+        })
+    } else { // favorite 상태가 아닐 때
+      Axios.post('/api/favorite/addToFavorite', variables)
+        .then(response => {
+          if(response.data.success){
+            setFavorited(prev => !prev);
+            setFavoriteNumber(prev => prev + 1);
+          } else {
+            alert('favorite 삭제를 실패했습니다.')
+          }
+        })
+    }
+  }
+
 
   return (
     <div>
-      <button>{favorited ? "Not Favorite" : "Add to Favorite"} {favoriteNumber}</button>
+      <Button onClick={onClickFavorite}>{favorited ? "Cancel Favorite" : "Add to Favorite"} {favoriteNumber}</Button>
     </div>
   )
 }

@@ -35,7 +35,7 @@ function LandingPage(props) {
   return (
     <div style={{ width: '100%', margin: '0' }}>
       {mainMovieImage && 
-        <MainImage image={`${IMAGE_BASE_URL}w1280${mainMovieImage.backdrop_path}`} 
+        <MainImage image={`${IMAGE_BASE_URL}w1200${mainMovieImage.backdrop_path}`} 
           title={mainMovieImage.original_title}
           overview={mainMovieImage.overview}
         />
